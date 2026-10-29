@@ -1,0 +1,43 @@
+# Los puertos se publican SOLO en 127.0.0.1: nadie de tu red ni de Internet puede
+# llegar a la versión vulnerable. No cambies esto por "5001:5000".
+services:
+  app-secure:
+    build: .
+    environment:
+      APP_MODE: secure
+    env_file:
+      - path: .env
+        required: false
+    ports:
+      - "127.0.0.1:5000:5000"
+    volumes:
+      - secure-data:/data
+
+  app-vuln:
+    build: .
+    environment:
+      APP_MODE: vulnerable
+    ports:
+      - "127.0.0.1:5001:5000"
+    volumes:
+      - vuln-data:/data
+
+  # Caja de herramientas de ataque (hydra, sqlmap). Uso: docker compose run --rm tools
+  tools:
+    build: ./tools
+    profiles: ["tools"]
+    volumes:
+      - ./wordlists:/wordlists:ro
+    depends_on: [app-secure, app-vuln]
+
+  # OWASP ZAP. Uso: ver scripts/scan.sh
+  zap:
+    image: zaproxy/zap-stable
+    profiles: ["scan"]
+    volumes:
+      - ./reportes:/zap/wrk:rw
+    depends_on: [app-secure, app-vuln]
+
+volumes:
+  secure-data:
+  vuln-data:

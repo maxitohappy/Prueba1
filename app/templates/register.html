@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Registro · Clima Santiago{% endblock %}
+{% block content %}
+<h1>Crear cuenta</h1>
+<form method="post" class="card">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <label>Usuario <input name="username" autocomplete="username" required></label>
+  <label>Contraseña <input name="password" type="password" autocomplete="new-password" required></label>
+  <label>Repite la contraseña <input name="password2" type="password" autocomplete="new-password" required></label>
+  {% if not vulnerable %}
+  <p class="hint">Mínimo 12 caracteres, con letras y números, sin incluir tu usuario.</p>
+  {% endif %}
+  <button type="submit">Registrarme</button>
+</form>
+{% endblock %}

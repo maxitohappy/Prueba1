@@ -1,0 +1,28 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, sans-serif; background: #f2f5f9; color: #1d2733; }
+.banner { background: #b3261e; color: #fff; text-align: center; padding: 6px; font-weight: 600; }
+.banner-ok { background: #1b6e3a; }
+nav { display: flex; gap: 16px; align-items: center; padding: 12px 24px; background: #fff;
+      border-bottom: 1px solid #dde3ea; }
+nav a { color: #1f5fbf; text-decoration: none; }
+.spacer { flex: 1; }
+main { max-width: 820px; margin: 24px auto; padding: 0 16px; }
+.card { background: #fff; border: 1px solid #dde3ea; border-radius: 10px; padding: 20px; }
+form.card { display: flex; flex-direction: column; gap: 12px; max-width: 380px; }
+label { display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
+input { padding: 8px; border: 1px solid #b9c3cf; border-radius: 6px; font-size: 15px; }
+button { padding: 8px 14px; border: 0; border-radius: 6px; background: #1f5fbf; color: #fff;
+         cursor: pointer; font-size: 14px; }
+button.link { background: none; color: #1f5fbf; padding: 0; }
+form.inline { display: inline; }
+.msg { padding: 10px 14px; border-radius: 6px; margin-bottom: 12px; }
+.msg.error { background: #fde8e7; color: #8c1d18; }
+.msg.ok { background: #e3f4e8; color: #14532d; }
+.hint { color: #5b6773; font-size: 13px; }
+.weather .temp { font-size: 64px; margin: 0; font-weight: 700; }
+.weather .desc { font-size: 20px; margin: 4px 0 12px; }
+.weather .label { color: #5b6773; margin: 0; }
+table { width: 100%; border-collapse: collapse; background: #fff; font-size: 14px; }
+th, td { border: 1px solid #dde3ea; padding: 6px 8px; text-align: left; }
+td form.inline button { margin: 2px 0; }
+code { word-break: break-all; }

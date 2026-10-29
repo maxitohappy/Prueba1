@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Clima Santiago{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  {% if vulnerable %}
+  <div class="banner">⚠ MODO VULNERABLE — fallas intencionales. Úsalo solo en tu computador.</div>
+  {% else %}
+  <div class="banner banner-ok">🔒 Modo seguro</div>
+  {% endif %}
+  <nav>
+    <a href="{{ url_for('auth.index') }}">☀ Clima Santiago</a>
+    <span class="spacer"></span>
+    {% if g.user %}
+      <a href="{{ url_for('auth.profile', user_id=g.user['id']) }}">{{ g.user['username']|nombre }}</a>
+      {% if g.user['role'] == 'admin' %}<a href="{{ url_for('auth.admin') }}">Admin</a>{% endif %}
+      <form method="post" action="{{ url_for('auth.logout') }}" class="inline">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button type="submit" class="link">Salir</button>
+      </form>
+    {% else %}
+      <a href="{{ url_for('auth.login') }}">Entrar</a>
+      <a href="{{ url_for('auth.register') }}">Registrarse</a>
+    {% endif %}
+  </nav>
+  <main>
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+      <div class="msg {{ category }}">{{ message }}</div>
+    {% endfor %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

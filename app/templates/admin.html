@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Admin · Clima Santiago{% endblock %}
+{% block content %}
+<h1>Panel de administración</h1>
+<table>
+  <tr><th>ID</th><th>Usuario</th><th>Rol</th><th>Intentos fallidos</th><th>Bloqueado hasta</th><th>Acciones</th></tr>
+  {% for u in users %}
+  <tr>
+    <td>{{ u['id'] }}</td>
+    <td>{{ u['username']|nombre }}</td>
+    <td>{{ u['role'] }}</td>
+    <td>{{ u['failed_attempts'] }}</td>
+    <td>{{ u['locked_until'] or '—' }}</td>
+    <td>
+      <form method="post" action="{{ url_for('auth.unlock', user_id=u['id']) }}" class="inline">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button type="submit">Desbloquear</button>
+      </form>
+      <form method="post" action="{{ url_for('auth.change_role', user_id=u['id']) }}" class="inline">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="role" value="{{ 'user' if u['role'] == 'admin' else 'admin' }}">
+        <button type="submit">Hacer {{ 'usuario' if u['role'] == 'admin' else 'admin' }}</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

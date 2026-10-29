@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Perfil · Clima Santiago{% endblock %}
+{% block content %}
+<h1>Perfil</h1>
+<div class="card">
+  <p>ID: {{ profile['id'] }}</p>
+  <p>Usuario: {{ profile['username']|nombre }}</p>
+  <p>Rol: {{ profile['role'] }}</p>
+  {% if vulnerable %}
+  {# VULN: exposición de datos sensibles: se muestra el hash de la contraseña #}
+  <p>Hash de contraseña: <code>{{ profile['password'] }}</code></p>
+  {% endif %}
+</div>
+{% endblock %}

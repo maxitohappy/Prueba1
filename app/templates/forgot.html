@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Recuperar contraseña · Clima Santiago{% endblock %}
+{% block content %}
+<h1>Recuperar contraseña</h1>
+<form method="post" class="card">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <label>Usuario <input name="username" required></label>
+  <button type="submit">Enviar enlace</button>
+</form>
+{% endblock %}

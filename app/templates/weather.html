@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Hola, {{ g.user['username']|nombre }}</h1>
+{% if weather %}
+<div class="card weather">
+  <p class="label">Santiago de Chile · hoy</p>
+  <p class="temp">{{ weather.temperature|round|int }}°C</p>
+  <p class="desc">{{ weather.description }}</p>
+  <ul>
+    <li>Máxima <strong>{{ weather.max|round|int }}°C</strong> · Mínima <strong>{{ weather.min|round|int }}°C</strong></li>
+    <li>Humedad <strong>{{ weather.humidity }}%</strong></li>
+    <li>Viento <strong>{{ weather.wind }} km/h</strong></li>
+    <li>Probabilidad de lluvia <strong>{{ weather.rain_probability }}%</strong></li>
+  </ul>
+  <p class="hint">Actualizado: {{ weather.updated }} · Datos de Open-Meteo.com</p>
+</div>
+{% else %}
+<div class="msg error">No se pudo obtener el clima en este momento. Intenta más tarde.</div>
+{% endif %}
+{% endblock %}

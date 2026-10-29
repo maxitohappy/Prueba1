@@ -1,0 +1,8 @@
+admin
+administrador
+root
+test
+usuario
+maria
+juan
+pedro
